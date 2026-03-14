@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br" translate="no">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
@@ -186,9 +186,10 @@ body.dark-section #cring{border-color:rgba(255,255,255,.28)}
 /* subtle geometric background lines */
 
 .hero-inner{
-  position:relative;z-index:2;
+  position:relative;z-index:10;
   display:flex;flex-direction:column;align-items:center;text-align:center;
   max-width:900px;gap:0;
+  width:100%;
 }
 
 .hero-eyebrow{
@@ -243,26 +244,26 @@ body.dark-section #cring{border-color:rgba(255,255,255,.28)}
 
 /* CTA button */
 .btn-primary{
-  display:inline-flex;align-items:center;gap:14px;
-  font-family:var(--sans);font-weight:200;font-size:.6rem;
-  letter-spacing:.42em;text-transform:uppercase;
-  color:var(--light);text-decoration:none;
-  padding:16px 40px;
-  border:1px solid rgba(255,255,255,.35);
-  position:relative;overflow:hidden;
-  transition:color .4s,border-color .4s;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-family:var(--sans);font-weight:200;
+  font-size:.6rem;letter-spacing:2px;text-transform:uppercase;
+  color:#ffffff;text-decoration:none;
+  padding:15px 25px;
+  background:transparent;
+  border:1px solid #ffffff;
+  position:relative;z-index:10;overflow:hidden;
+  transition:color .4s,background .4s;
 }
 .btn-primary::before{
   content:'';position:absolute;inset:0;
-  background:var(--pure);
+  background:#ffffff;
   transform:scaleX(0);transform-origin:left;
   transition:transform .5s var(--ease2);
 }
-.btn-primary:hover{color:var(--black2);border-color:var(--pure)}
+.btn-primary:hover{color:var(--black2)}
 .btn-primary:hover::before{transform:scaleX(1)}
-.btn-primary span{position:relative;z-index:1;padding-right:.42em}
-.btn-arrow{position:relative;z-index:1;font-size:.7rem;transition:transform .4s var(--ease);display:none}
-.btn-primary:hover .btn-arrow{transform:translateX(5px)}
+.btn-primary span{position:relative;z-index:1}
+.btn-arrow{display:none}
 
 /* scroll indicator */
 .hero-scroll{
@@ -346,8 +347,9 @@ body.dark-section #cring{border-color:rgba(255,255,255,.28)}
 }
 .about-placeholder-text span{
   font-family:var(--serif);font-weight:300;font-size:6rem;
-  letter-spacing:.2em;color:rgba(255,255,255,.04);text-transform:uppercase;
+  letter-spacing:.2em;color:rgba(255,255,255,.05);text-transform:uppercase;
   user-select:none;-webkit-user-select:none;pointer-events:none;
+  position:relative;z-index:-1;
 }
 
 /* ═══════════════════════════════════════════
@@ -436,11 +438,13 @@ body.dark-section #cring{border-color:rgba(255,255,255,.28)}
 .portfolio-deco{
   position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
   pointer-events:none;
+  z-index:-1;
 }
 .portfolio-deco span{
   font-family:var(--serif);font-weight:300;
   font-size:6rem;letter-spacing:.2em;
-  opacity:.12;text-transform:uppercase;
+  opacity:.05;text-transform:uppercase;
+  user-select:none;-webkit-user-select:none;
 }
 .portfolio-item:nth-child(1) .portfolio-deco span{color:var(--white)}
 .portfolio-item:nth-child(2) .portfolio-deco span{color:var(--white)}
@@ -611,23 +615,22 @@ body.dark-section #cring{border-color:rgba(255,255,255,.28)}
 
 .form-submit{
   margin-top:48px;align-self:flex-start;
-  display:inline-flex;align-items:center;gap:16px;
-  font-family:var(--sans);font-weight:200;font-size:.6rem;
-  letter-spacing:.42em;text-transform:uppercase;
-  color:var(--white);background:transparent;
-  padding:18px 44px;border:1px solid rgba(255,255,255,.45);
-  cursor:pointer;position:relative;overflow:hidden;
-  transition:color .4s,background .4s,border-color .4s;
-  padding-right:calc(44px + .42em);
+  display:inline-flex;align-items:center;justify-content:center;gap:16px;
+  font-family:var(--sans);font-weight:200;
+  font-size:.6rem;letter-spacing:2px;text-transform:uppercase;
+  color:#ffffff;background:transparent;
+  padding:15px 25px;border:1px solid #ffffff;
+  cursor:pointer;position:relative;z-index:10;overflow:hidden;
+  transition:color .4s,background .4s;
 }
 .form-submit::before{
   content:'';position:absolute;inset:0;
-  background:var(--pure);transform:scaleX(0);transform-origin:left;
+  background:#ffffff;transform:scaleX(0);transform-origin:left;
   transition:transform .5s var(--ease2);
 }
-.form-submit:hover{color:var(--black2);border-color:var(--pure)}
+.form-submit:hover{color:var(--black2)}
 .form-submit:hover::before{transform:scaleX(1)}
-.form-submit span{position:relative;z-index:1;padding-right:.42em}
+.form-submit span{position:relative;z-index:1}
 
 /* ═══════════════════════════════════════════
    FOOTER
@@ -666,58 +669,119 @@ footer{
 }
 
 @media(max-width:768px){
+  /* NAV */
   #nav{padding:22px 24px}
   #nav.scrolled{padding:16px 24px}
   .nav-links{display:none}
   .nav-hamburger{display:flex}
-  #hero{padding:110px 24px 80px}
-  #portfolio,#services,#about,#contact{padding-left:24px;padding-right:24px}
-  #quote{padding:80px 24px}
+  .lang-switcher{display:none}
+
+  /* ── ALL SECTIONS: flex column, centered, 60px breathing ── */
+  #hero,#about,#portfolio,#services,#quote,#contact{
+    display:flex;flex-direction:column;
+    align-items:center;justify-content:center;
+    text-align:center;
+    padding-left:24px;padding-right:24px;
+    padding-top:60px;padding-bottom:60px;
+  }
+  #portfolio .portfolio-inner,
+  #services .services-inner,
+  #contact .contact-inner{
+    width:100%;
+  }
+
+  /* ── HERO: stack cleanly, hide absolute decorations ── */
+  #hero{padding-top:100px;padding-bottom:72px}
+  .hero-inner{
+    display:flex;flex-direction:column;
+    align-items:center;text-align:center;
+    width:100%;position:relative;z-index:10;
+  }
+  .hero-eyebrow{margin-bottom:20px;letter-spacing:.3em;padding-right:.3em;position:relative;z-index:10}
+  .hero-name{font-size:clamp(2.8rem,13vw,4.5rem);margin-bottom:0;position:relative;z-index:10}
+  .hero-rule{margin:24px auto;position:relative;z-index:10}
+  .hero-tagline{margin-bottom:32px;position:relative;z-index:10}
+  .btn-primary{position:relative;z-index:10}
+  .hero-year,.hero-location{display:none}
+  .hero-scroll{display:none}
+
+  /* ── ABOUT: column, image after text ── */
+  #about{
+    grid-template-columns:none;gap:0;
+    align-items:center;
+  }
+  #about > div:first-child{
+    display:flex;flex-direction:column;
+    align-items:center;text-align:center;
+    width:100%;margin-bottom:40px;
+  }
+  .about-label{margin-bottom:20px;position:relative;z-index:10}
+  .about-heading{margin-bottom:20px;position:relative;z-index:10}
+  .about-text{position:relative;z-index:10;margin-bottom:20px}
+  .about-signature{position:relative;z-index:10}
+  .about-visual{width:100%;max-height:320px;aspect-ratio:16/9}
+
+  /* ── SECTION HEADERS ── */
+  .section-header{margin-bottom:40px;display:flex;flex-direction:column;align-items:center}
+  .section-title{margin-bottom:20px;position:relative;z-index:10}
+  .section-label{margin-bottom:20px;position:relative;z-index:10}
+
+  /* ── PORTFOLIO ── */
+  #portfolio{padding-top:60px;padding-bottom:60px}
   .portfolio-grid{grid-template-columns:1fr}
   .portfolio-item:first-child{grid-column:span 1;aspect-ratio:4/3}
+
+  /* ── SERVICES ── */
+  #services{padding-top:60px;padding-bottom:60px}
   .services-grid{grid-template-columns:1fr}
-  footer{flex-direction:column;gap:24px;text-align:center;padding:36px 24px}
-  .footer-links{flex-wrap:wrap;justify-content:center}
-  .hero-lll{letter-spacing:.4em;padding-right:.4em}
-  .hero-eyebrow{letter-spacing:.4em;padding-right:.4em;margin-bottom:20px}
-  .hero-tagline{margin-bottom:36px}
-  #about{padding-top:80px;padding-bottom:80px;gap:48px}
+  .service-item{display:flex;flex-direction:column;align-items:center;text-align:center}
+
+  /* ── QUOTE ── */
+  #quote{padding:60px 24px;flex-direction:column}
+  .quote-text{position:relative;z-index:10;margin-bottom:20px}
+  .quote-author{position:relative;z-index:10}
+
+  /* ── CONTACT ── */
+  #contact{padding-top:60px;padding-bottom:60px}
+  .contact-inner{width:100%}
+  .form-submit{align-self:stretch;justify-content:center}
+
+  /* ── FOOTER ── */
+  footer{
+    display:flex;flex-direction:column;
+    align-items:center;text-align:center;
+    gap:24px;padding:36px 24px;
+  }
+  .footer-links{
+    display:flex;flex-direction:column;
+    align-items:center;gap:12px;flex-wrap:wrap;
+  }
 }
 
 @media(max-width:480px){
-  
+  /* ── NAV ── */
   #nav{padding:18px 20px}
 
-  /* ── Hero ── */
-  #hero{padding:96px 20px 72px}
-  .hero-lll{font-size:.9rem;letter-spacing:.25em;padding-right:.25em;margin-bottom:12px}
-  .hero-eyebrow{font-size:.5rem;letter-spacing:.3em;padding-right:.3em;margin-bottom:18px}
-  .hero-name{font-size:clamp(2.8rem,14vw,4.2rem);line-height:.92}
-  .hero-tagline{font-size:.92rem;line-height:1.55;margin-bottom:32px;letter-spacing:.04em}
-  .btn-primary{padding:14px 28px;letter-spacing:.28em;font-size:.56rem}
+  /* ── HERO ── */
+  #hero{padding-top:88px;padding-bottom:60px;padding-left:20px;padding-right:20px}
+  .hero-name{font-size:clamp(2.4rem,13vw,3.8rem);line-height:.92}
+  .hero-tagline{font-size:.9rem;line-height:1.6}
+  .btn-primary{width:100%;padding:15px 20px}
 
-  /* Hide floating labels that collide with scroll indicator on tiny screens */
-  .hero-year,.hero-location{display:none}
+  /* ── ALL SECTIONS ── */
+  #about,#portfolio,#services,#quote,#contact{
+    padding-left:20px;padding-right:20px;
+    padding-top:60px;padding-bottom:60px;
+  }
 
-  /* ── About ── */
-  #about{padding:72px 20px;gap:40px}
+  /* ── ABOUT ── */
+  .about-heading{font-size:clamp(1.8rem,7vw,2.6rem);margin-bottom:20px}
 
-  /* ── Portfolio ── */
-  #portfolio{padding:72px 20px}
+  /* ── SERVICES ── */
+  .service-item{padding:36px 20px}
 
-  /* ── Services ── */
-  #services{padding:72px 20px}
-  .service-item{padding:36px 24px}
-
-  /* ── Quote ── */
-  #quote{padding:64px 20px}
-
-  /* ── Contact ── */
-  #contact{padding:72px 20px 56px}
-
-  /* ── Footer ── */
+  /* ── FOOTER ── */
   footer{padding:32px 20px}
-  .footer-links{gap:16px}
 }
 
 /* ═══════════════════════════════════════════
@@ -749,33 +813,41 @@ footer{
   #eb-nav{padding:20px 24px}
   #eb-nav.scrolled{padding:14px 24px}
   #eb-nav .nav-links{display:none}
-  #eb-hero{padding:100px 24px 60px}
-  #page-ebooks section{padding:80px 24px}
-  #page-ebooks .cta-section{padding:100px 24px}
-  #page-ebooks .testimonial-section{padding:64px 24px}
+  #eb-hero{
+    padding:100px 24px 60px;
+    display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;
+  }
+  #eb-hero .hero-inner{
+    display:flex;flex-direction:column;
+    align-items:center;text-align:center;
+    width:100%;position:relative;z-index:10;
+  }
+  #page-ebooks section{padding:60px 24px}
+  #page-ebooks .cta-section{padding:60px 24px}
+  #page-ebooks .testimonial-section{padding:60px 24px}
   .books-grid{grid-template-columns:1fr}
   #page-ebooks footer{padding:60px 24px}
-  .cta-buttons{flex-direction:column;align-items:center}
+  .cta-buttons{
+    display:flex;flex-direction:column;
+    align-items:center;gap:16px;
+  }
   #page-ebooks .btn-cta,#page-ebooks .btn-cta-ghost{width:100%;justify-content:center}
-  
-  
-  
-  
+  #page-ebooks .section-header{
+    display:flex;flex-direction:column;align-items:center;text-align:center;
+  }
+  #page-ebooks .section-title{margin-bottom:20px}
 }
 @media(max-width:480px){
   #eb-hero{padding:88px 20px 52px}
-  #page-ebooks section{padding:64px 20px}
-  #page-ebooks .cta-section{padding:80px 20px}
+  #page-ebooks section{padding:60px 20px}
+  #page-ebooks .cta-section{padding:60px 20px}
   #page-ebooks .testimonial-section{padding:52px 20px}
   #page-ebooks .book-card{padding:32px 20px}
   #page-ebooks footer{padding:48px 20px}
   #page-ebooks .preview-block{padding:20px 22px}
   #page-ebooks .guarantee-badge{padding:16px 20px}
-}
-  
-  
-  
-  
+  #page-ebooks .btn-cta,#page-ebooks .btn-cta-ghost{width:100%;padding:15px 20px}
 }
 
 /* ── LANGUAGE SWITCHER ── */
@@ -907,7 +979,10 @@ footer{
   justify-content:center; align-items:center; text-align:center;
   padding:120px 48px 80px; position:relative;
 }
-#eb-hero .hero-inner { max-width:720px; width:100%; }
+#eb-hero .hero-inner {
+  max-width:720px; width:100%;
+  display:flex; flex-direction:column; align-items:center;
+}
 #eb-hero .hero-eyebrow {
   display:block; font-family:var(--sans); font-weight:200;
   font-size:.5rem; letter-spacing:.7em; color:rgba(255,255,255,.25);
@@ -1058,15 +1133,16 @@ footer{
 /* ── BOOK BUTTON ── */
 #page-ebooks .btn-book {
   display:inline-flex; align-items:center; justify-content:center;
-  font-family:var(--sans); font-weight:200; font-size:.44rem;
-  letter-spacing:.38em; color:rgba(255,255,255,.65); text-decoration:none;
-  border:1px solid rgba(255,255,255,.22); padding:16px 24px;
-  text-transform:uppercase; transition:color .3s, border-color .3s, background .3s;
-  position:relative; width:100%; padding-right:calc(24px + .38em);
+  font-family:var(--sans); font-weight:200;
+  font-size:.44rem; letter-spacing:2px;
+  color:#ffffff; text-decoration:none;
+  background:transparent; border:1px solid #ffffff;
+  padding:15px 25px; text-transform:uppercase;
+  transition:color .3s, background .3s;
+  position:relative; z-index:10; width:100%;
 }
 #page-ebooks .btn-book:hover {
-  color:rgba(255,255,255,.95); border-color:rgba(255,255,255,.55);
-  background:rgba(255,255,255,.04);
+  color:#000; background:#ffffff;
 }
 
 /* ── TESTIMONIAL ── */
@@ -1140,26 +1216,27 @@ footer{
 }
 #page-ebooks .cta-buttons { display:flex; gap:24px; justify-content:center; flex-wrap:wrap; }
 #page-ebooks .btn-cta {
-  font-family:var(--sans); font-weight:200; font-size:.52rem; letter-spacing:.38em;
-  color:rgba(255,255,255,.85); background:transparent; text-decoration:none;
-  padding:20px 48px; text-transform:uppercase;
+  font-family:var(--sans); font-weight:200;
+  font-size:.52rem; letter-spacing:2px;
+  color:#ffffff; background:transparent; text-decoration:none;
+  padding:15px 25px; text-transform:uppercase;
   display:inline-flex; align-items:center; justify-content:center;
-  border:1px solid rgba(255,255,255,.45);
-  transition:color .35s, border-color .35s, background .35s;
-  padding-right:calc(48px + .38em);
+  border:1px solid #ffffff; position:relative; z-index:10;
+  transition:color .35s, background .35s;
 }
 #page-ebooks .btn-cta:hover {
-  color:var(--black2); background:var(--pure); border-color:var(--pure);
+  color:#000; background:#ffffff;
 }
 #page-ebooks .btn-cta-ghost {
-  font-family:var(--sans); font-weight:200; font-size:.52rem; letter-spacing:.38em;
-  color:rgba(255,255,255,.45); border:1px solid rgba(255,255,255,.2);
-  text-decoration:none; padding:20px 48px; text-transform:uppercase;
+  font-family:var(--sans); font-weight:200;
+  font-size:.52rem; letter-spacing:2px;
+  color:#ffffff; background:transparent;
+  text-decoration:none; padding:15px 25px; text-transform:uppercase;
   display:inline-flex; align-items:center; justify-content:center;
-  transition:color .3s, border-color .3s; padding-right:calc(48px + .38em);
-  background:transparent;
+  border:1px solid rgba(255,255,255,.4); position:relative; z-index:10;
+  transition:color .3s, border-color .3s;
 }
-#page-ebooks .btn-cta-ghost:hover { color:rgba(255,255,255,.75); border-color:rgba(255,255,255,.4); }
+#page-ebooks .btn-cta-ghost:hover { color:#fff; border-color:#fff; }
 
 /* ── GUARANTEE BADGE ── */
 #page-ebooks .guarantee-badge {
@@ -1639,7 +1716,7 @@ footer{
   <div class="footer-links">
     <a href="#">Instagram</a>
     <a href="#">LinkedIn</a>
-    <a href="mailto:ethosdigita@gmail.com">Email</a>
+    <a href="mailto:ethosdigita@gmail.com">ethosdigita@gmail.com</a>
   </div>
 </footer>
 
@@ -1827,7 +1904,7 @@ footer{
 </section>
 
 <!-- PREVIEW / EXCERPTS -->
-<section id="preview" class="preview-section">
+<section id="ebooks" class="preview-section">
   <div class="section-header reveal">
     <span class="section-label" data-i18n="preview_label">Leia Trechos</span>
     <h2 class="section-title" data-i18n="preview_title">Um gostinho do que está dentro.</h2>
@@ -1852,7 +1929,7 @@ footer{
     <a href="LINK_DE_PAGAMENTO_AQUI" class="btn-cta checkout-btn" data-product="bundle" target="_blank" rel="noopener" onclick="return checkoutClick(this)">
       <span data-i18n="cta_btn">Obter o Pacote Completo</span>
     </a>
-    <a href="#preview" class="btn-cta-ghost" data-i18n="cta_ghost" onclick="(function(e){e.preventDefault();var t=document.getElementById('preview');if(t){t.scrollIntoView({behavior:'smooth'});}else{window.scrollTo({top:0,behavior:'smooth'});}}).call(this,event)">Ler Trechos Primeiro</a>
+    <a href="#ebooks" class="btn-cta-ghost" data-i18n="cta_ghost">Ler Trechos Primeiro</a>
   </div>
 </section>
 
